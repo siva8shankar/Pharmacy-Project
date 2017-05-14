@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>PharmacyTech</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+	
+	  <servlet>
+    <servlet-name>CreateServlet</servlet-name>
+    <servlet-class>com.techmahindra.CreateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateServlet</servlet-name>
+    <url-pattern>/CreateServlet</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>RegisterPatientServlet</servlet-name>
+    <servlet-class>com.techmahindra.RegisterPatientServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegisterPatientServlet</servlet-name>
+    <url-pattern>/RegisterPatientServlet</url-pattern>
+  </servlet-mapping>
+  
+ <servlet>
+  <servlet-name>registereduserServlet</servlet-name>
+  <servlet-class>com.techmahindra.registereduserServlet</servlet-class>
+ </servlet>
+    <servlet-mapping>
+    <servlet-name>registereduserServlet</servlet-name>
+    <url-pattern>/go</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>VerifyLogin1</servlet-name>
+    <servlet-class>com.techmahindra.VerifyLogin1</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VerifyLogin1</servlet-name>
+    <url-pattern>/servlet/verifyLogin1</url-pattern>
+  </servlet-mapping>
+  
+   <listener>
+  	<listener-class>com.techmahindra.MyListener</listener-class>
+  </listener>
+  
+</web-app>
