@@ -12,3 +12,55 @@ sQuery = "SELECT PROJECT_NAME,PROJECT_MANAGER,PROJECT_MANAGER_EMAILID,PROJECT_AM
                     ifr.setValue("table40_PROJECT_END_DATE", getTagValues(sOutput, "PROJECT_END_DATE"));
                     ifr.setValue("table40_PROJECT_DESCRIPTON", getTagValues(sOutput, "PROJECT_DESCRIPTON"));
                 }
+				
+				
+public String getDataFromDBWithColumns(IFormReference formobj, String query, String columns) {
+	String data = "";
+	System.out.println("Inside getDBfromDB================================================");
+	System.out.println(query);
+	List<List<String>> retval = formobj.getDataFromDB(query);
+	System.out.println(retval);
+	String[] Cols = columns.split(",");
+	if (retval.isEmpty()) {
+	return "<Data><TotalRetrieved>0</TotalRetrieved></Data>";
+	}
+	data = "<Data><TotalRetrieved>" + retval.size() + "</TotalRetrieved>";
+	for (int i = 0; i < retval.size(); i++) {
+	data += "<Row>";
+	for (int j = 0; j < retval.get(i).size(); j++) {
+	data += "<" + Cols[j] + ">" + retval.get(i).get(j) + "</" + Cols[j] + ">";
+	}
+	data += "</Row>";
+	}
+	data += "</Data>";
+	return data;																											
+}
+public String getTagValues(String sXML, String sTagName) {
+        String sTagValues = "";
+        String sStartTag = "<" + sTagName + ">";
+        String sEndTag = "</" + sTagName + ">";
+        String tempXML = sXML;
+        tempXML = tempXML.replaceAll("&", "#amp#");
+        try {
+
+            for (int i = 0; i < sXML.split(sEndTag).length - 1; i++) {
+                if (tempXML.indexOf(sStartTag) != -1) {
+                    sTagValues += tempXML.substring(tempXML.indexOf(sStartTag) + sStartTag.length(), tempXML.indexOf(sEndTag));
+                    //System.out.println("sTagValues"+sTagValues);
+                    tempXML = tempXML.substring(tempXML.indexOf(sEndTag) + sEndTag.length(), tempXML.length());
+                }
+                if (tempXML.indexOf(sStartTag) != -1) {
+                    sTagValues += ",";
+                    //System.out.println("sTagValues"+sTagValues);
+                }
+            }
+            if (sTagValues.indexOf("#amp#") != -1) {
+                System.out.println("Index found");
+                sTagValues = sTagValues.replaceAll("#amp#", "&").trim();
+            }
+            //System.out.println(" Final sTagValues"+sTagValues);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sTagValues;
+    }
